@@ -79,8 +79,8 @@ if (!file_exists($fontFile)) {
     exit();
 }
 
-imagettftext($image, 25, 0, 400, 300, $textcolor, $fontFile, $userName);  
-imagettftext($image, 14, 0, 450, 350, $textcolor, $fontFile, $trueAnswer);
+imagettftext($image, 26, 0, 400, 300, $textcolor, $fontFile, $userName);  
+imagettftext($image, 16, 0, 450, 350, $textcolor, $fontFile, $trueAnswer);
 header('Content-type: image/jpeg');
 imagejpeg($image); 
 
