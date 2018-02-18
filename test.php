@@ -11,45 +11,25 @@ if ($test_number < 1 || !ctype_digit($test_number) || $test_number > count($test
 $test = $tests_list[$test_number+1];
 $contents = file_get_contents(__DIR__ . $testDir.DIRECTORY_SEPARATOR.$test);
 $tests = json_decode($contents, true);
-echo "<pre>";
-//print_r($tests);
-print_r($_POST);
 
 $trueAnswer = 0;
 $falseAnswer = 0;
 $noAnswer = 0;
-
 $userAnswers = [];
-$trueAnswers = [];
-
 $i = 0;
-$x = 0;
-foreach ($tests as $tkey => $test) {
-    $trueAnswers['trueAnswerUser'.$i] = $test['correct-answer'];
-    if (empty($_POST) || !isset($_POST['answerUser'.$i])) {
-        $noAnswer++;            
-        } 
-        elseif (isset($_POST['answerUser'.$i]) && $_POST['answerUser'.$i] == $trueAnswers['trueAnswerUser'.($i+1)]) {
-            $trueAnswer++;    
-            $userAnswers['aUser'.$i] == $_POST['answerUser'.$i];        
-        } 
-        else {
+
+foreach ($tests as $userAnswers) {
+    if (empty($_POST)) {   
+    } 
+    elseif (empty($_POST["answerUser$i"])) {
+            $noAnswer++;            
+    } elseif ($_POST["answerUser$i"] == $userAnswers["correct-answer"]) {
+            $trueAnswer++;            
+    } else {
             $falseAnswer++;            
-        }
-        $i++;
-        $x++;
+    }
+            $i++; 
 }
-
-print_r($trueAnswers);
-print_r($userAnswers);
-
-echo "<br>";
-echo "Количество правильных ответов:".$trueAnswer;
-echo "<br>";
-echo "Количество НЕ правильных ответов:".$falseAnswer;
-echo "<br>";
-echo "Нет ответов на ".$noAnswer." вопросов";
-echo "<br>";
 
 if (!empty($_POST)) {
     $userName = $_POST['user_name']; 
@@ -101,23 +81,21 @@ imagejpeg($image);
             <div style="text-align: left;">
                 <?php 
                     $i = 0;
-                    foreach ($tests as $tkey => $test) {
+                    foreach ($tests as $userAnswers) {
                 ?>
                 <fieldset>
                     <legend>
-                        <h2><?php echo $test['question'] ?></h2>
+                        <h2><?php echo $userAnswers['question'] ?></h2>
                     </legend>
-                <?php
-                    for ($i = 0; $i < count($test['answers']); $i++) {
-                ?>
                 <label>
-                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $test['answers'][$i]; ?>"><?php echo $test['answers'][$i]; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer1']; ?>"><?php echo $userAnswers['answer1']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer2']; ?>"><?php echo $userAnswers['answer2']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer3']; ?>"><?php echo $userAnswers['answer3']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer4']; ?>"><?php echo $userAnswers['answer4']; ?>
                 </label>
-                <?php
-                    }
-                ?>
                 </fieldset>
                 <?php
+                $i++;
                 }
                 ?>
 
