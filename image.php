@@ -1,11 +1,19 @@
 <?php
+
 if (empty($_POST['user_name'])) {
         http_response_code(400);
         echo "Введите фамилилю и имя.";
         exit();
     } 
-    else {
-        $userName = $userName = $_POST['user_name'];
+    elseif (empty($_POST['user_rating'])) {
+        http_response_code(400);
+        echo "Вы не прошли тест!";
+        exit();
+     } 
+     else 
+     {
+        $userName = $_POST['user_name'];
+        $rating = $_POST['user_rating'];
     }
 
 $image = imagecreatetruecolor(965, 685);
@@ -28,11 +36,9 @@ if (!file_exists($fontFile)) {
     exit();
 }
 
-imagettftext($image, 25, 0, 350, 330, $textcolor, $fontFile, $userName);  
-imagettftext($image, 14, 0, 450, 350, $textcolor, $fontFile, $trueAnswer);
+imagettftext($image, 25, 0, 390, 340, $textcolor, $fontFile, $userName);  
+imagettftext($image, 14, 0, 450, 395, $textcolor, $fontFile, $rating);
 header('Content-type: image/jpeg');
 imagejpeg($image); 
-
-
 
 ?>
