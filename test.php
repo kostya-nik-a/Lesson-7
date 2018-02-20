@@ -15,9 +15,11 @@ $tests = json_decode($contents, true);
 $trueAnswer = 0;
 $falseAnswer = 0;
 $noAnswer = 0;
+$rating = 0;
 
 foreach ($tests as $qkey => $questions) {
     if (is_array($questions)) {
+        $i = 0;
         foreach ($questions as $answers) {
             if (empty($_POST)) {   
             } 
@@ -32,7 +34,6 @@ foreach ($tests as $qkey => $questions) {
         }
     }
 }
-
 
 ?>
 
@@ -49,6 +50,7 @@ foreach ($tests as $qkey => $questions) {
                 <?php 
                         foreach ($tests as $qkey => $questions) {
                             if (is_array($questions)) {
+                                $x = 0;
                                 foreach ($questions as $answers) {
                     ?>
                     <fieldset>
@@ -59,13 +61,14 @@ foreach ($tests as $qkey => $questions) {
                         <?php 
                             for ($i=0; $i < count($answers['answers']);$i++) { 
                         ?>
-                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $answers['answers'][$i]; ?>"><?php echo $answers['answers'][$i]; ?>
+                    <input name="<?php echo 'answerUser'.$x ?>" type="radio" value="<?php echo $answers['answers'][$i]; ?>"><?php echo $answers['answers'][$i]; ?>
                     <?php 
                         }
                     ?>
                     </label>
                 </fieldset>
                 <?php
+                        $x++;
                         }
                     }
                 }
@@ -78,21 +81,28 @@ foreach ($tests as $qkey => $questions) {
                 "<p> Количество НЕ правильных ответов: " . $falseAnswer . "</p>" .
                 "<p> Нет ответов на " .$noAnswer. " вопросов </p>";
                 }  
+
+                $numQuestions = $x;
+
+                if ($trueAnswer == $numQuestions) {
+                    $rating = "Супер!";
+                } 
+                elseif ($trueAnswer < $numQuestions && $trueAnswer > $numQuestions-2 ) {
+                    $rating = "Очень хорошо!";
+                } 
+                elseif ($trueAnswer <= $numQuestions-3 && $trueAnswer >= $numQuestions-4 ) {
+                    $rating = "Могли бы и лучше!";
+                }
+                else {
+                    $rating = "Печально!";
+                }
+
                 ?>
 
-                <p><strong>Введите ваши фамилию и имя: </strong></p>
-                <input name="user_name" type="text" value="">
-                <button type="submit">Результат</button>  
-
-                <?php 
-                   /* if (empty($_POST['user_name']) && !empty($_POST)) {
-                        http_response_code(400);
-                        echo "<p style='color: red;'>Введите фамилилю и имя.</p>";
-                     } 
-
-                    $userName = $_POST['user_name'];
-                    echo $userName; */
-                ?>            
+                <br><br><strong>Введите ваши фамилию и имя: </strong><input type="text" name="user_name" value="">
+                <input type="hidden" name="user_rating" value="<?php echo $rating ?>">
+                <br>
+                <button type="submit">Результат</button>            
             </div>
         </form>
     </body>
