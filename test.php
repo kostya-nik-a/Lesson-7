@@ -86,15 +86,19 @@ foreach ($tests as $qkey => $questions) {
 
                 if ($trueAnswer == $numQuestions) {
                     $rating = "Супер!";
+                    $_POST['user_rating'] = $rating;
                 } 
                 elseif ($trueAnswer < $numQuestions && $trueAnswer >= $numQuestions-1 ) {
                     $rating = "Очень хорошо!";
+                    $_POST['user_rating'] = $rating;
                 } 
                 elseif ($trueAnswer <= $numQuestions-2 && $trueAnswer >= $numQuestions-3 ) {
                     $rating = "Могли бы и лучше!";
+                    $_POST['user_rating'] = $rating;
                 }
                 else {
                     $rating = "Печально!";
+                    $_POST['user_rating'] = $rating;
                 }
 
                 ?>
