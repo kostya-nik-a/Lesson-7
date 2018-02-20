@@ -86,19 +86,15 @@ foreach ($tests as $qkey => $questions) {
 
                 if ($trueAnswer == $numQuestions) {
                     $rating = "Супер!";
-                    echo $rating;
                 } 
                 elseif ($trueAnswer < $numQuestions && $trueAnswer >= $numQuestions-1 ) {
                     $rating = "Очень хорошо!";
-                    echo $rating;
                 } 
                 elseif ($trueAnswer <= $numQuestions-2 && $trueAnswer >= $numQuestions-3 ) {
                     $rating = "Могли бы и лучше!";
-                    echo $rating;
                 }
                 else {
                     $rating = "Печально!";
-                    echo $rating;
                 }
 
                 ?>
