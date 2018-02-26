@@ -4,12 +4,12 @@ ini_set("display_errors", 1);
 //echo "<pre>";
 //var_dump($_FILES);
 
-$AdminUrl = $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"];
-$listURL = dirname($AdminUrl) . "/list.php";     
+//$AdminUrl = $_SERVER['HTTP_HOST'] . $_SERVER["REQUEST_URI"];
+//$listURL = dirname($AdminUrl) . "/list.php";     
 
-if(isset($_FILES["send_files"]) && !empty($_FILES["send_files"]) && $_FILES['send_files']['size'] !== 0) {
-    header("Location: http://"  . $listURL, true, 307);        
-} 
+//if(isset($_FILES["send_files"]) && !empty($_FILES["send_files"]) && $_FILES['send_files']['size'] !== 0) {
+//    header("Location: list.php", true, 307);        
+//} 
 
 if (!file_exists(__DIR__ . "/tests")) {
     mkdir(__DIR__ . "/tests");
@@ -25,11 +25,14 @@ if (isset($file['name']) && !empty($file['name']))
       {
       	$info = new SplFileInfo($file['name']);
         $fileType = $info->getExtension();
-        	if ($fileType != "json") {
-    			echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <a href='admin.php'> Назад </a> ";
-    			exit();
-    		  }
-    	  move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
+        
+        if ($fileType != "json") {
+    		echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <a href='admin.php'><br> Назад </a> ";
+    		exit();
+    	}
+
+    	move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
+        header("Location: list.php", true, 307); 
       	$message = 'Файл успешно загружен';
       }
       else {
@@ -69,12 +72,12 @@ legend { font-weight: 600;}
         <ul>
             	<?php 
             		$filesDir = scandir($testDir);
-                $numFiles=count(scandir($testDir))-2;
-                $filesDirs = array_slice($filesDir, 2);
-            		foreach ($filesDirs as $fd)
-        				{
-        					echo '<li>'.$fd.'</li>';
-                }
+                    $numFiles = count(scandir($testDir))-2;
+                    $filesDirs = array_slice($filesDir, 2);
+            		
+                    foreach ($filesDirs as $fd)	{
+        				echo '<li>'.$fd.'</li>';
+                    }
         				
         		?>
         </ul>
