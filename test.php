@@ -7,7 +7,7 @@ $testDir = __DIR__ ."/tests";
 $tests_list = scandir($testDir);
 $numFiles=count($tests_list)-2;
 
-if ($tst_num > $numFiles || $tst_num <= 0/*< 1 || !ctype_digit($test_number) || $test_number > count($tests_list) - 2*/) {
+if ($tst_num > $numFiles || $tst_num <= 0) {
    header("HTTP/1.1 404 Not Found"); 
    exit();
 }
@@ -76,6 +76,7 @@ foreach ($tests as $qkey => $questions) {
                     }
                 }
 
+ 
                 if (!empty($_POST)) {
                 echo  
                 "<p> Количество правильных ответов: " . $trueAnswer . "</p>" .
@@ -100,22 +101,6 @@ foreach ($tests as $qkey => $questions) {
 
                 //echo $_POST['user_rating'];// = $rating;
                 print_r($_POST);
-
-                    $_POST['user_rating'] = $rating;
-                } 
-                elseif ($trueAnswer < $numQuestions && $trueAnswer >= $numQuestions-1 ) {
-                    $rating = "Очень хорошо!";
-                    $_POST['user_rating'] = $rating;
-                } 
-                elseif ($trueAnswer <= $numQuestions-2 && $trueAnswer >= $numQuestions-3 ) {
-                    $rating = "Могли бы и лучше!";
-                    $_POST['user_rating'] = $rating;
-                }
-                else {
-                    $rating = "Печально!";
-                    $_POST['user_rating'] = $rating;
-                }
-
 
                 ?>
 
