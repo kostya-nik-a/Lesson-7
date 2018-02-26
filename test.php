@@ -18,11 +18,7 @@ $tests = json_decode($contents, true);
 $trueAnswer = 0;
 $falseAnswer = 0;
 $noAnswer = 0;
-<<<<<<< HEAD
 $rating;
-=======
-$rating = 0;
->>>>>>> c81fd3cb228653092e3f06924f918db91d68c47c
 
 foreach ($tests as $qkey => $questions) {
     if (is_array($questions)) {
@@ -80,12 +76,6 @@ foreach ($tests as $qkey => $questions) {
                     }
                 }
 
-<<<<<<< HEAD
- 
-=======
-                ?>
-                <?php 
->>>>>>> c81fd3cb228653092e3f06924f918db91d68c47c
                 if (!empty($_POST)) {
                 echo  
                 "<p> Количество правильных ответов: " . $trueAnswer . "</p>" .
@@ -97,7 +87,6 @@ foreach ($tests as $qkey => $questions) {
 
                 if ($trueAnswer == $numQuestions) {
                     $rating = "Супер!";
-<<<<<<< HEAD
                 } 
                 elseif ($trueAnswer < $numQuestions && $trueAnswer >= $numQuestions-1 ) {
                     $rating = "Очень хорошо!";
@@ -111,7 +100,7 @@ foreach ($tests as $qkey => $questions) {
 
                 //echo $_POST['user_rating'];// = $rating;
                 print_r($_POST);
-=======
+
                     $_POST['user_rating'] = $rating;
                 } 
                 elseif ($trueAnswer < $numQuestions && $trueAnswer >= $numQuestions-1 ) {
@@ -126,7 +115,7 @@ foreach ($tests as $qkey => $questions) {
                     $rating = "Печально!";
                     $_POST['user_rating'] = $rating;
                 }
->>>>>>> c81fd3cb228653092e3f06924f918db91d68c47c
+
 
                 ?>
 
